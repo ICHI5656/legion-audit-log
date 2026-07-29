@@ -30,7 +30,7 @@ connection details are prohibited. See
 
 Every daily log must place an index of that day's section headings immediately
 after the title. The index and all `## Update:` sections are ordered newest
-first so a length-limited reader sees the latest governance decision first.
+first so the latest governance decision is easiest to find.
 Baseline sections such as scope and initial state follow the update sections.
 
 When adding an update, insert it above older updates and refresh the index.
@@ -38,23 +38,20 @@ Do not append a new update to the end of the file.
 
 ## Cache-Avoiding Reads
 
-For verification, prefer an immutable URL pinned to the commit that published
-the log:
+The Web-side reader must use the branch URL with a unique revision query:
 
 ```text
-https://raw.githubusercontent.com/ICHI5656/legion-audit-log/<commit-sha>/audit-log/YYYY-MM-DD.md
+https://raw.githubusercontent.com/<owner>/<repo>/main/<path>?rev=<commit-sha>
 ```
 
-When a branch URL is required, add a unique revision query value and do not
-reuse it:
+Use the full current `HEAD` SHA as the query value and do not reuse a value
+after another publication. Every raw URL in a Codex report must use this form.
 
-```text
-https://raw.githubusercontent.com/ICHI5656/legion-audit-log/main/audit-log/YYYY-MM-DD.md?rev=<commit-sha>
-```
-
-Confirm the returned content or SHA-256 before treating the read as current.
-An unchanged response after publication is a cache signal, not proof of
-truncation or publication failure.
+A commit-pinned path (`/<commit-sha>/<path>`) may be unavailable through the
+Web-side reader and is not the recommended reporting format. Confirm returned
+content or SHA-256 before treating the read as current. An unchanged plain
+branch response after publication is a cache signal, not proof of truncation
+or publication failure.
 
 ## Required Local Setup
 
