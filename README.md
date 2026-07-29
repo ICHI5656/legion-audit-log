@@ -36,6 +36,26 @@ Baseline sections such as scope and initial state follow the update sections.
 When adding an update, insert it above older updates and refresh the index.
 Do not append a new update to the end of the file.
 
+## Cache-Avoiding Reads
+
+For verification, prefer an immutable URL pinned to the commit that published
+the log:
+
+```text
+https://raw.githubusercontent.com/ICHI5656/legion-audit-log/<commit-sha>/audit-log/YYYY-MM-DD.md
+```
+
+When a branch URL is required, add a unique revision query value and do not
+reuse it:
+
+```text
+https://raw.githubusercontent.com/ICHI5656/legion-audit-log/main/audit-log/YYYY-MM-DD.md?rev=<commit-sha>
+```
+
+Confirm the returned content or SHA-256 before treating the read as current.
+An unchanged response after publication is a cache signal, not proof of
+truncation or publication failure.
+
 ## Required Local Setup
 
 Install the repository-owned hook once after cloning:
